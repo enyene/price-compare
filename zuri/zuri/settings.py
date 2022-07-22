@@ -68,6 +68,8 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'accounts.User'
+
 WSGI_APPLICATION = 'zuri.wsgi.application'
 
 
