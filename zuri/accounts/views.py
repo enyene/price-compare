@@ -10,8 +10,10 @@ def home(request):
 
 #login page
 @unauthenticated_user
-def login(request):
-    return render(request, 'accounts/login.html')
+def user_login(request):
+    user = request.user
+    context = {'user': user}
+    return render(request, 'accounts/login.html', context)
 
 
 # register page
