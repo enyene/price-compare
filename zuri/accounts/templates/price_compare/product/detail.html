@@ -1,0 +1,28 @@
+{% extends 'price_compare/base.html' %}
+
+{% block title %}{{product.name}}{% endblock %}
+
+{% block content %}
+    <h1>product name : {{product.name}}</h1>
+    {% for platform in platforms %}
+        <h2>
+            platform name and link :
+            <a href="{{platform.purchase_page}}">
+                {{platform.name}}
+            </a>
+        </h2>
+        <p>price on the platform : {{platform.price}}</p>
+        <span>---------------------------------------<span>
+    {% endfor %}
+    <h2>
+        <span>comments</span>
+    </h2>
+    {% for comment in comments %}
+        <div>
+            <p>when the comment was created: {{comment.created}}</p>
+            comment content: {{comment.body|linebreaks}}
+        </div>
+        {% empty %}
+            <p>There are no comments</p>
+    {% endfor %}
+{% endblock %}
