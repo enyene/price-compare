@@ -16,14 +16,14 @@ def jumia_get_product(product):
     returns a dictionary with name, price , link and img_src parameter
     """
 
-    return {
-        'name': 'mockphone',
-        'brand': 'generic',
-        'price': 'N 9000',
-        'link': 'jumia.com/generics+mockphone',
-        'img_src': 'generics/jpg',
-        'platform_name': 'jumia'
-    }
+    # return {
+    #     'name': 'mockphone',
+    #     'brand': 'generic',
+    #     'price': 'N 9000',
+    #     'link': 'jumia.com/generics+mockphone',
+    #     'img_src': 'generics/jpg',
+    #     'platform_name': 'jumia'
+    # }
     phones = []
     page = 1
     while page <= 1:
@@ -44,6 +44,7 @@ def jumia_get_product(product):
         page += 1
     for phone in phones:
         if product['name'].lower() in phone['name'].lower() and product['brand'].lower() in phone['brand'].lower():
+            print(phone)
             return phone
 
 

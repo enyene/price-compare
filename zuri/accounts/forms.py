@@ -38,7 +38,7 @@ class RegisterForm(UserCreationForm,CaseInsensitiveUsernameMixin):
             'password2'
         ]
 
-class LoginForm(forms.form):
+class LoginForm(forms.Form):
     '''
     user login form with fields username and password 
     used with login views and template

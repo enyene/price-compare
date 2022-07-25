@@ -7,27 +7,40 @@
     <img src="{{product.img_src}}" alt="{{product.name}}">
     {% for platform in platforms %}
         <h2>
-            platform name and link :
-            <a href="{{platform.link}}">
-                {{platform.platform_name}}
+            {{platform.platform_name}} :
+            <a href="https:/jumia.com.ng/{{platform.link}}" target="blank">
+                Buy
             </a>
         </h2>
         <p>price on the platform : {{platform.price}}</p>
         <span>---------------------------------------<span>
     {% endfor %}
+    {% with comments.count as total_comments %}
     <h2>
-        <span>comments</span>
+        <span>{{ total_comments }} comment{{ total_comments|pluralize }}</span>
     </h2>
+    {% endwith %}
     <ol>
     {% for comment in comments %}
     <li>
         <div>
-            <p>when the comment was created: {{comment.created}}</p>
-            comment content: {{comment.body|linebreaks}}
+            <p>when the comment was created: {{ comment.created }}</p>
+            comment content: {{ comment.body|linebreaks }}
         </div>
     </li>
         {% empty %}
             <p>There are no comments</p>
     {% endfor %}
     <ol>
+
+{% if new_comment %}
+    <h2>Your comment has been added.</h2>
+{% else %}
+    <h2>Add a new comment</h2>
+    <form method="post">
+        {{ comment_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Add comment"></p>
+    </form>
+{% endif %}
 {% endblock %}

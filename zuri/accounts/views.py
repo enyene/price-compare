@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from .models import Product , Platform
 from .decorators import unauthenticated_user
 from .products import jumia_get_product
+from .forms import CommentForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -45,14 +46,34 @@ def product_detail(request,id,product):
     )
 
     comments = product.comments.filter(active=True)
+    new_comment = None
     platforms = []
-    platforms.append(jumia_get_product(product))
+    prd = {
+        'name':product.name,
+        'brand':product.brand
+    }
+    print(prd)
+    platforms.append(jumia_get_product(prd))
+
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.product = product
+            new_comment.save()
+    else:
+            comment_form = CommentForm()
 
     return render(request,'price_compare/product/detail.html',
                     {
                         'product':product,
                         'comments':comments,
-                        'platforms':platforms
+                        'platforms':platforms,
+                        'new_comment':new_comment,
+                        'comment_form':comment_form
                     },            
     )
 
