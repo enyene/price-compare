@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db.models import fields
 from django.forms import ModelForm
 
-from .models import User
+from .models import User, Comment
 
 class CaseInsensitiveUsernameMixin(forms.Form):
     """
@@ -45,3 +45,8 @@ class LoginForm(forms.form):
     '''
     username = forms.CharField(widget=forms.TextInput(attrs={}),label='Username')
     password = forms.CharField(widget=forms.PasswordInput,label='Password')
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('username','body')

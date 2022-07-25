@@ -36,6 +36,8 @@ class User(AbstractUser):
 class Product(models.Model):
     id = models.UUIDField(default=uuid4(),unique=True,primary_key=True)
     name = models.CharField(max_length=614)
+    brand = models.CharField(max_length=256)
+    img_src = models.CharField(max_length=614)
     slug = models.SlugField(blank=True,max_length=124)
 
     def save(self,*args,**kwargs):
@@ -70,5 +72,5 @@ class Platform(models.Model):
     name = models.CharField(max_length=128)
     price = models.DecimalField(max_digits=12,decimal_places=2)
     purchase_page = models.URLField()
-    product = models.ForeignKey(Product,on_delete=models.PROTECT,related_name='platforms')
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='platforms')
 

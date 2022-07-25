@@ -3,12 +3,13 @@
 {% block title %}{{product.name}}{% endblock %}
 
 {% block content %}
-    <h1>product name : {{product.name}}</h1>
+    <h1>{{product.name}}</h1>
+    <img src="{{product.img_src}}" alt="{{product.name}}">
     {% for platform in platforms %}
         <h2>
             platform name and link :
-            <a href="{{platform.purchase_page}}">
-                {{platform.name}}
+            <a href="{{platform.link}}">
+                {{platform.platform_name}}
             </a>
         </h2>
         <p>price on the platform : {{platform.price}}</p>
@@ -17,12 +18,16 @@
     <h2>
         <span>comments</span>
     </h2>
+    <ol>
     {% for comment in comments %}
+    <li>
         <div>
             <p>when the comment was created: {{comment.created}}</p>
             comment content: {{comment.body|linebreaks}}
         </div>
+    </li>
         {% empty %}
             <p>There are no comments</p>
     {% endfor %}
+    <ol>
 {% endblock %}

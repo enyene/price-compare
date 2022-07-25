@@ -1,11 +1,11 @@
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404, render
-from numpy import product
-from prettyprinter import comment
-
-from .models import Product
+from .models import Product , Platform
 from .decorators import unauthenticated_user
+from .products import jumia_get_product
 from django.contrib.auth.decorators import login_required
+
+
 
 # Create your views here.
 
@@ -45,7 +45,8 @@ def product_detail(request,id,product):
     )
 
     comments = product.comments.filter(active=True)
-    platforms = product.platforms.all()
+    platforms = []
+    platforms.append(jumia_get_product(product))
 
     return render(request,'price_compare/product/detail.html',
                     {
@@ -60,3 +61,4 @@ class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'price_compare/product/list.html'
+    
